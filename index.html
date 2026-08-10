@@ -10,16 +10,17 @@
 
     <title>BRUR Bus Tracker</title>
 
-
     <!-- Leaflet CSS -->
-
     <link
         rel="stylesheet"
         href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
     >
 
-
     <style>
+
+        /* =========================
+           RESET
+        ========================= */
 
         * {
             margin: 0;
@@ -35,14 +36,16 @@
         }
 
 
-        /* HEADER */
+        /* =========================
+           HEADER
+        ========================= */
 
         header {
-            background: white;
-            padding: 18px 20px;
+            background: #ffffff;
+            padding: 17px 20px;
 
             box-shadow:
-                0 2px 10px rgba(0,0,0,0.08);
+                0 2px 10px rgba(0, 0, 0, 0.08);
 
             position: sticky;
             top: 0;
@@ -73,7 +76,9 @@
         }
 
 
-        /* MAIN */
+        /* =========================
+           MAIN
+        ========================= */
 
         main {
             max-width: 1100px;
@@ -82,8 +87,12 @@
         }
 
 
+        /* =========================
+           HERO
+        ========================= */
+
         .hero {
-            margin-bottom: 25px;
+            margin-bottom: 22px;
         }
 
 
@@ -95,28 +104,29 @@
 
         .hero p {
             color: #6b7280;
+            line-height: 1.5;
         }
 
 
-        /* SELECTOR */
+        /* =========================
+           SELECTOR CARD
+        ========================= */
 
         .selector-card {
-
-            background: white;
+            background: #ffffff;
 
             padding: 20px;
 
             border-radius: 16px;
 
-            margin-bottom: 20px;
+            margin-bottom: 18px;
 
             box-shadow:
-                0 4px 15px rgba(0,0,0,0.06);
+                0 4px 15px rgba(0, 0, 0, 0.06);
         }
 
 
         .selector-grid {
-
             display: grid;
 
             grid-template-columns:
@@ -127,7 +137,6 @@
 
 
         .form-group label {
-
             display: block;
 
             font-size: 14px;
@@ -139,7 +148,6 @@
 
 
         select {
-
             width: 100%;
 
             padding: 12px;
@@ -148,33 +156,42 @@
 
             border-radius: 10px;
 
-            background: white;
+            background: #ffffff;
 
             font-size: 14px;
+
+            color: #1f2937;
 
             cursor: pointer;
         }
 
 
-        /* ROUTE INFO */
+        select:focus {
+            outline: none;
+
+            border-color: #2563eb;
+        }
+
+
+        /* =========================
+           ROUTE INFO
+        ========================= */
 
         .route-info {
-
-            background: white;
+            background: #ffffff;
 
             padding: 20px;
 
             border-radius: 16px;
 
-            margin-bottom: 20px;
+            margin-bottom: 18px;
 
             box-shadow:
-                0 4px 15px rgba(0,0,0,0.06);
+                0 4px 15px rgba(0, 0, 0, 0.06);
         }
 
 
         .route-title {
-
             font-size: 18px;
 
             font-weight: bold;
@@ -184,55 +201,82 @@
 
 
         .route-name {
-
             color: #2563eb;
 
-            line-height: 1.6;
+            line-height: 1.7;
         }
 
 
-        /* MAP */
+        .route-status {
+            display: inline-block;
+
+            margin-top: 10px;
+
+            padding: 5px 10px;
+
+            border-radius: 20px;
+
+            background: #dcfce7;
+
+            color: #15803d;
+
+            font-size: 12px;
+
+            font-weight: bold;
+        }
+
+
+        .route-status.closed {
+            background: #fee2e2;
+
+            color: #dc2626;
+        }
+
+
+        /* =========================
+           MAP
+        ========================= */
 
         .map-container {
-
-            background: white;
+            background: #ffffff;
 
             border-radius: 18px;
 
             overflow: hidden;
 
-            margin-bottom: 20px;
+            margin-bottom: 18px;
 
             box-shadow:
-                0 4px 15px rgba(0,0,0,0.06);
+                0 4px 15px rgba(0, 0, 0, 0.06);
         }
 
 
         #map {
-
-            height: 420px;
-
             width: 100%;
+
+            height: 430px;
         }
 
 
-        /* STOPS */
+        /* =========================
+           STOPS CARD
+        ========================= */
 
         .stops-card {
-
-            background: white;
+            background: #ffffff;
 
             padding: 20px;
 
             border-radius: 16px;
 
+            margin-bottom: 20px;
+
             box-shadow:
-                0 4px 15px rgba(0,0,0,0.06);
+                0 4px 15px rgba(0, 0, 0, 0.06);
         }
 
 
         .stops-title {
-
             font-size: 20px;
 
             font-weight: bold;
@@ -242,7 +286,6 @@
 
 
         .stop {
-
             display: flex;
 
             align-items: center;
@@ -256,16 +299,14 @@
 
 
         .stop:last-child {
-
             border-bottom: none;
         }
 
 
         .stop-number {
+            width: 35px;
 
-            width: 34px;
-
-            height: 34px;
+            height: 35px;
 
             border-radius: 50%;
 
@@ -288,29 +329,48 @@
 
 
         .stop-info {
-
             flex: 1;
         }
 
 
         .stop-name {
-
             font-weight: bold;
 
-            margin-bottom: 3px;
+            margin-bottom: 4px;
         }
 
 
         .stop-time {
-
             font-size: 13px;
 
             color: #6b7280;
         }
 
 
-        footer {
+        /* =========================
+           INFORMATION MESSAGE
+        ========================= */
 
+        .empty-message {
+            padding: 15px;
+
+            background: #f8fafc;
+
+            border-radius: 10px;
+
+            color: #64748b;
+
+            font-size: 14px;
+
+            line-height: 1.6;
+        }
+
+
+        /* =========================
+           FOOTER
+        ========================= */
+
+        footer {
             text-align: center;
 
             padding: 30px;
@@ -321,9 +381,16 @@
         }
 
 
-        /* MOBILE */
+        /* =========================
+           MOBILE
+        ========================= */
 
         @media (max-width: 600px) {
+
+            .header-content {
+                gap: 10px;
+            }
+
 
             .logo {
                 font-size: 18px;
@@ -341,7 +408,7 @@
 
 
             #map {
-                height: 380px;
+                height: 390px;
             }
 
         }
@@ -354,7 +421,9 @@
 <body>
 
 
-    <!-- HEADER -->
+    <!-- =========================
+         HEADER
+    ========================= -->
 
     <header>
 
@@ -363,6 +432,7 @@
             <div class="logo">
                 🚌 BRUR Bus Tracker
             </div>
+
 
             <div class="status">
                 ● System Online
@@ -373,6 +443,10 @@
     </header>
 
 
+
+    <!-- =========================
+         MAIN
+    ========================= -->
 
     <main>
 
@@ -393,12 +467,16 @@
 
 
 
-        <!-- ROUTE / TRIP SELECTOR -->
+        <!-- =========================
+             ROUTE / TRIP SELECTOR
+        ========================= -->
 
         <section class="selector-card">
 
             <div class="selector-grid">
 
+
+                <!-- ROUTE -->
 
                 <div class="form-group">
 
@@ -412,6 +490,7 @@
                 </div>
 
 
+                <!-- TRIP -->
 
                 <div class="form-group">
 
@@ -424,14 +503,15 @@
 
                 </div>
 
-
             </div>
 
         </section>
 
 
 
-        <!-- ROUTE INFORMATION -->
+        <!-- =========================
+             ROUTE INFORMATION
+        ========================= -->
 
         <section class="route-info">
 
@@ -439,16 +519,26 @@
                 Selected Route
             </div>
 
+
             <div
                 class="route-name"
                 id="routeName">
+            </div>
+
+
+            <div
+                class="route-status"
+                id="routeStatus">
+                Active
             </div>
 
         </section>
 
 
 
-        <!-- MAP -->
+        <!-- =========================
+             MAP
+        ========================= -->
 
         <section class="map-container">
 
@@ -458,13 +548,16 @@
 
 
 
-        <!-- STOPS -->
+        <!-- =========================
+             STOPS / SCHEDULE
+        ========================= -->
 
         <section class="stops-card">
 
             <div class="stops-title">
                 📍 Bus Stops & Schedule
             </div>
+
 
             <div id="stopsList">
             </div>
@@ -476,6 +569,10 @@
 
 
 
+    <!-- =========================
+         FOOTER
+    ========================= -->
+
     <footer>
 
         BRUR University Bus Tracker © 2026
@@ -484,7 +581,9 @@
 
 
 
-    <!-- LEAFLET JS -->
+    <!-- =========================
+         LEAFLET JS
+    ========================= -->
 
     <script
         src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js">
@@ -494,25 +593,26 @@
 
     <script>
 
-
-        /* =====================================
-           BRUR DATA
-        ===================================== */
-
+        /* ==================================================
+           BRUR BUS DATA
+           Based on provided BRUR schedule file
+        ================================================== */
 
         const busData = [
 
-            {
+            /* =========================
+               ROUTE 01
+            ========================= */
 
+            {
                 route_id: "01",
 
                 route_name:
                     "বিশ্ববিদ্যালয় - তাজহাট - শাপলাচত্বর - বিশ্ববিদ্যালয়",
 
-                trips: [
+                buses: [
 
                     {
-
                         trip: "সকাল ১ম ট্রিপ",
 
                         start_time: "08:00 AM",
@@ -589,12 +689,10 @@
                             }
 
                         ]
-
                     },
 
 
                     {
-
                         trip: "সকাল ২য় ট্রিপ",
 
                         start_time: "09:00 AM",
@@ -671,16 +769,337 @@
                             }
 
                         ]
+                    },
 
+
+                    {
+                        trip: "সকাল ৩য় ট্রিপ",
+
+                        start_time: "11:00 AM",
+
+                        end_time: "11:55 AM",
+
+                        stops: [
+
+                            {
+                                stop_name: "বিশ্ববিদ্যালয়",
+                                time: "11:00"
+                            },
+
+                            {
+                                stop_name: "লালবাগ",
+                                time: "11:20"
+                            },
+
+                            {
+                                stop_name: "খামার মোড়",
+                                time: "11:25"
+                            },
+
+                            {
+                                stop_name: "চারতলা মোড়",
+                                time: "11:29"
+                            },
+
+                            {
+                                stop_name: "বীকন মোড়",
+                                time: "11:32"
+                            },
+
+                            {
+                                stop_name: "শাপলা চত্বর",
+                                time: "11:35"
+                            },
+
+                            {
+                                stop_name: "ঘোড়াপীর মাজার",
+                                time: "11:37"
+                            },
+
+                            {
+                                stop_name: "রেলগেট",
+                                time: "11:40"
+                            },
+
+                            {
+                                stop_name: "আনছারি মোড়",
+                                time: "11:45"
+                            },
+
+                            {
+                                stop_name: "তাজহাট",
+                                time: "11:49"
+                            },
+
+                            {
+                                stop_name: "গলাকাটা মোড়",
+                                time: "11:50"
+                            },
+
+                            {
+                                stop_name: "কামারের মোড়",
+                                time: "11:52"
+                            },
+
+                            {
+                                stop_name:
+                                    "বিশ্ববিদ্যালয় (পৌঁছে)",
+
+                                time: "11:55"
+                            }
+
+                        ]
+                    },
+
+
+                    {
+                        trip: "বেলা ৪র্থ ট্রিপ",
+
+                        start_time: "01:00 PM",
+
+                        end_time: "02:10 PM",
+
+                        stops: [
+
+                            {
+                                stop_name: "বিশ্ববিদ্যালয়",
+                                time: "1:00"
+                            },
+
+                            {
+                                stop_name: "লালবাগ",
+                                time: "1:05"
+                            },
+
+                            {
+                                stop_name: "খামার মোড়",
+                                time: "1:09"
+                            },
+
+                            {
+                                stop_name: "চারতলা মোড়",
+                                time: "1:42"
+                            },
+
+                            {
+                                stop_name: "বীকন মোড়",
+                                time: "1:45"
+                            },
+
+                            {
+                                stop_name: "শাপলা চত্বর",
+                                time: "1:47"
+                            },
+
+                            {
+                                stop_name: "ঘোড়াপীর মাজার",
+                                time: "1:53"
+                            },
+
+                            {
+                                stop_name: "রেলগেট",
+                                time: "1:55"
+                            },
+
+                            {
+                                stop_name: "আনছারি মোড়",
+                                time: "1:57"
+                            },
+
+                            {
+                                stop_name: "তাজহাট",
+                                time: "2:00"
+                            },
+
+                            {
+                                stop_name: "গলাকাটা মোড়",
+                                time: "2:02"
+                            },
+
+                            {
+                                stop_name: "কামারের মোড়",
+                                time: "2:05"
+                            },
+
+                            {
+                                stop_name:
+                                    "বিশ্ববিদ্যালয় (পৌঁছে)",
+
+                                time: "2:10"
+                            }
+
+                        ]
+                    },
+
+
+                    {
+                        trip: "বিকাল ৫ম ট্রিপ",
+
+                        start_time: "03:00 PM",
+
+                        end_time: "04:10 PM",
+
+                        stops: [
+
+                            {
+                                stop_name: "বিশ্ববিদ্যালয়",
+                                time: "3:00"
+                            },
+
+                            {
+                                stop_name: "লালবাগ",
+                                time: "3:05"
+                            },
+
+                            {
+                                stop_name: "খামার মোড়",
+                                time: "3:09"
+                            },
+
+                            {
+                                stop_name: "চারতলা মোড়",
+                                time: "3:42"
+                            },
+
+                            {
+                                stop_name: "বীকন মোড়",
+                                time: "3:45"
+                            },
+
+                            {
+                                stop_name: "শাপলা চত্বর",
+                                time: "3:47"
+                            },
+
+                            {
+                                stop_name: "ঘোড়াপীর মাজার",
+                                time: "3:53"
+                            },
+
+                            {
+                                stop_name: "রেলগেট",
+                                time: "3:55"
+                            },
+
+                            {
+                                stop_name: "আনছারি মোড়",
+                                time: "3:57"
+                            },
+
+                            {
+                                stop_name: "তাজহাট",
+                                time: "4:00"
+                            },
+
+                            {
+                                stop_name: "গলাকাটা মোড়",
+                                time: "4:02"
+                            },
+
+                            {
+                                stop_name: "কামারের মোড়",
+                                time: "4:05"
+                            },
+
+                            {
+                                stop_name:
+                                    "বিশ্ববিদ্যালয় (পৌঁছে)",
+
+                                time: "4:10"
+                            }
+
+                        ]
+                    },
+
+
+                    {
+                        trip: "বিকাল ৬ষ্ঠ ট্রিপ",
+
+                        start_time: "05:10 PM",
+
+                        end_time: "05:50 PM",
+
+                        stops: [
+
+                            {
+                                stop_name: "বিশ্ববিদ্যালয়",
+                                time: "5:10"
+                            },
+
+                            {
+                                stop_name: "লালবাগ",
+                                time: "5:15"
+                            },
+
+                            {
+                                stop_name: "খামার মোড়",
+                                time: "5:19"
+                            },
+
+                            {
+                                stop_name: "চারতলা মোড়",
+                                time: "5:22"
+                            },
+
+                            {
+                                stop_name: "বীকন মোড়",
+                                time: "5:25"
+                            },
+
+                            {
+                                stop_name: "শাপলা চত্বর",
+                                time: "5:27"
+                            },
+
+                            {
+                                stop_name: "ঘোড়াপীর মাজার",
+                                time: "5:33"
+                            },
+
+                            {
+                                stop_name: "রেলগেট",
+                                time: "5:35"
+                            },
+
+                            {
+                                stop_name: "আনছারি মোড়",
+                                time: "5:37"
+                            },
+
+                            {
+                                stop_name: "তাজহাট",
+                                time: "5:40"
+                            },
+
+                            {
+                                stop_name: "গলাকাটা মোড়",
+                                time: "5:42"
+                            },
+
+                            {
+                                stop_name: "কামারের মোড়",
+                                time: "5:45"
+                            },
+
+                            {
+                                stop_name:
+                                    "বিশ্ববিদ্যালয় (পৌঁছে)",
+
+                                time: "5:50"
+                            }
+
+                        ]
                     }
 
                 ]
-
             },
 
 
-            {
+            /* =========================
+               ROUTE 02
+            ========================= */
 
+            {
                 route_id: "02",
 
                 bus_name: "কমলা সুন্দরী",
@@ -727,12 +1146,92 @@
                     }
 
                 ]
-
             },
 
 
-            {
+            /* =========================
+               ROUTE 02 CLOSED
+            ========================= */
 
+            {
+                route_id: "02_closed",
+
+                route_name:
+                    "বিশ্ববিদ্যালয় - মডার্ন / শাপলাচত্বর - নিসবেতগঞ্জ - বিশ্ববিদ্যালয়",
+
+                status:
+                    "সম্পূর্ণ রুট বন্ধ"
+            },
+
+
+            /* =========================
+               ROUTE 03
+            ========================= */
+
+            {
+                route_id: "03",
+
+                bus_name: "BRTC",
+
+                route_name:
+                    "বদোরগঞ্জ / লাহীরী হাট - বিশ্ববিদ্যালয়",
+
+                sub_routes: [
+
+                    {
+                        name:
+                            "বিশ্ববিদ্যালয় টু বদরগঞ্জ (সকাল)",
+
+                        departure: "07:00 AM",
+
+                        arrival: "08:20 AM"
+                    },
+
+                    {
+                        name:
+                            "বদরগঞ্জ টু বিশ্ববিদ্যালয় (সকাল)",
+
+                        departure: "08:30 AM",
+
+                        arrival: "10:00 AM"
+                    },
+
+                    {
+                        name:
+                            "বিশ্ববিদ্যালয় টু লাহীরীর হাট (দুপুর)",
+
+                        departure: "01:00 PM",
+
+                        arrival: "02:35 PM"
+                    },
+
+                    {
+                        name:
+                            "বিশ্ববিদ্যালয় টু বদরগঞ্জ (বিকাল)",
+
+                        departure: "05:10 PM",
+
+                        arrival: "06:34 PM"
+                    },
+
+                    {
+                        name:
+                            "বদরগঞ্জ টু বিশ্ববিদ্যালয় (সকাল আগাম)",
+
+                        departure: "06:40 AM",
+
+                        arrival: "07:50 AM"
+                    }
+
+                ]
+            },
+
+
+            /* =========================
+               ROUTE 04
+            ========================= */
+
+            {
                 route_id: "04",
 
                 bus_name: "কমলা সুন্দরী",
@@ -779,12 +1278,40 @@
                     }
 
                 ]
-
             },
 
 
-            {
+            /* =========================
+               ROUTE 04 LIBRARY
+            ========================= */
 
+            {
+                route_id: "04_library",
+
+                bus_name: "কমলা সুন্দরী",
+
+                route_name:
+                    "লাইব্রেরী ট্রিপ (মেডিকেল মোড়)",
+
+                trips: [
+
+                    {
+                        trip: "লাইব্রেরী ট্রিপ",
+
+                        start_time: "07:00 PM",
+
+                        end_time: "08:00 PM"
+                    }
+
+                ]
+            },
+
+
+            /* =========================
+               ROUTE 05
+            ========================= */
+
+            {
                 route_id: "05",
 
                 bus_name: "কমলা সুন্দরী",
@@ -796,17 +1323,83 @@
 
                     {
                         trip: "৪র্থ ট্রিপ (বেলা)",
+
                         start_time: "01:00 PM",
+
                         end_time: "02:10 PM"
                     }
 
-                ]
+                ],
 
+                closedTrips: [
+                    "১ম ট্রিপ (০৮:০০)",
+                    "২য় ট্রিপ (০৯:০০)",
+                    "৩য় ট্রিপ (১১:০০)",
+                    "৫ম ট্রিপ (০৩:০০)",
+                    "৬ষ্ঠ ট্রিপ (০৫:১০)"
+                ]
             },
 
 
-            {
+            /* =========================
+               ROUTE 05 BRTC
+            ========================= */
 
+            {
+                route_id: "05_brtc",
+
+                bus_name: "BRTC",
+
+                route_name:
+                    "তারাগঞ্জ / পাগলাপীর - বিশ্ববিদ্যালয়",
+
+                sub_routes: [
+
+                    {
+                        name:
+                            "বিশ্ববিদ্যালয় টু তারাগঞ্জ (সকাল)",
+
+                        departure: "07:00 AM",
+
+                        arrival: "08:25 AM"
+                    },
+
+                    {
+                        name:
+                            "তারাগঞ্জ টু বিশ্ববিদ্যালয় (সকাল)",
+
+                        departure: "08:30 AM",
+
+                        arrival: "10:00 AM"
+                    },
+
+                    {
+                        name:
+                            "বিশ্ববিদ্যালয় টু পাগলাপীর (দুপুর)",
+
+                        departure: "01:00 PM",
+
+                        arrival: "02:40 PM"
+                    },
+
+                    {
+                        name:
+                            "বিশ্ববিদ্যালয় টু তারাগঞ্জ (বিকাল)",
+
+                        departure: "05:10 PM",
+
+                        arrival: "06:50 PM"
+                    }
+
+                ]
+            },
+
+
+            /* =========================
+               ROUTE 06
+            ========================= */
+
+            {
                 route_id: "06",
 
                 bus_name: "BRTC",
@@ -818,29 +1411,37 @@
 
                     {
                         trip: "সকাল ট্রিপ",
+
                         start_time: "07:30 AM",
+
                         end_time: "10:00 AM"
                     },
 
                     {
                         trip: "দুপুর ট্রিপ",
+
                         start_time: "01:50 PM",
+
                         end_time: "02:37 PM"
                     },
 
                     {
                         trip: "বিকাল ট্রিপ",
+
                         start_time: "05:10 PM",
+
                         end_time: "07:00 PM"
                     }
 
                 ]
-
             },
 
 
-            {
+            /* =========================
+               ROUTE 07
+            ========================= */
 
+            {
                 route_id: "07",
 
                 bus_name: "BRTC",
@@ -852,29 +1453,37 @@
 
                     {
                         trip: "১ম ট্রিপ (সকাল)",
+
                         start_time: "08:00 AM",
+
                         end_time: "09:40 AM"
                     },
 
                     {
                         trip: "২য় ট্রিপ (দুপুর)",
+
                         start_time: "01:30 PM",
+
                         end_time: "02:30 PM"
                     },
 
                     {
                         trip: "৩য় ট্রিপ (বিকাল)",
+
                         start_time: "05:10 PM",
+
                         end_time: "06:30 PM"
                     }
 
                 ]
-
             },
 
 
-            {
+            /* =========================
+               ROUTE 08
+            ========================= */
 
+            {
                 route_id: "08",
 
                 bus_name: "BRTC",
@@ -886,29 +1495,37 @@
 
                     {
                         trip: "১ম ট্রিপ (সকাল)",
+
                         start_time: "08:00 AM",
+
                         end_time: "09:50 AM"
                     },
 
                     {
                         trip: "২য় ট্রিপ (দুপুর)",
+
                         start_time: "01:30 PM",
+
                         end_time: "02:40 PM"
                     },
 
                     {
                         trip: "৩য় ট্রিপ (বিকাল)",
+
                         start_time: "05:10 PM",
+
                         end_time: "06:20 PM"
                     }
 
                 ]
-
             },
 
 
-            {
+            /* =========================
+               ROUTE 09
+            ========================= */
 
+            {
                 route_id: "09",
 
                 bus_name: "BRTC",
@@ -920,36 +1537,54 @@
 
                     {
                         trip: "১ম ট্রিপ (সকাল)",
+
                         start_time: "08:10 AM",
+
                         end_time: "10:00 AM"
                     },
 
                     {
                         trip: "২য় ট্রিপ (বিকাল)",
+
                         start_time: "03:30 PM",
+
                         end_time: "04:40 PM"
                     },
 
                     {
                         trip: "৩য় ট্রিপ (বিকাল)",
+
                         start_time: "05:10 PM",
+
                         end_time: "06:50 PM"
                     }
 
                 ]
-
             }
 
         ];
 
 
 
-        /* =====================================
+        /* ==================================================
            MAP
-        ===================================== */
+        ================================================== */
+
+        /*
+           Temporary map center.
+
+           Exact BRUR coordinates will be configured
+           later when we add real location data.
+        */
+
+        const mapCenter = [
+            25.7439,
+            89.2752
+        ];
+
 
         const map = L.map("map").setView(
-            [25.7439, 89.2752],
+            mapCenter,
             13
         );
 
@@ -968,16 +1603,15 @@
 
 
 
-        /* =====================================
+        /* ==================================================
            UNIVERSITY MARKER
-        ===================================== */
+        ================================================== */
 
-        const university = L.marker(
-            [25.7439, 89.2752]
-        ).addTo(map);
+        const universityMarker =
+            L.marker(mapCenter).addTo(map);
 
 
-        university.bindPopup(
+        universityMarker.bindPopup(
             `
             <b>🎓 Begum Rokeya University</b>
             <br>
@@ -987,9 +1621,9 @@
 
 
 
-        /* =====================================
+        /* ==================================================
            HTML ELEMENTS
-        ===================================== */
+        ================================================== */
 
         const routeSelect =
             document.getElementById(
@@ -1009,6 +1643,12 @@
             );
 
 
+        const routeStatus =
+            document.getElementById(
+                "routeStatus"
+            );
+
+
         const stopsList =
             document.getElementById(
                 "stopsList"
@@ -1016,9 +1656,9 @@
 
 
 
-        /* =====================================
-           LOAD ROUTES
-        ===================================== */
+        /* ==================================================
+           ADD ROUTES TO DROPDOWN
+        ================================================== */
 
         busData.forEach(
             route => {
@@ -1028,11 +1668,26 @@
                         "option"
                     );
 
+
                 option.value =
                     route.route_id;
 
-                option.textContent =
+
+                let label =
                     `Route ${route.route_id} — ${route.route_name}`;
+
+
+                if (route.bus_name) {
+
+                    label +=
+                        ` — ${route.bus_name}`;
+
+                }
+
+
+                option.textContent =
+                    label;
+
 
                 routeSelect.appendChild(
                     option
@@ -1043,52 +1698,174 @@
 
 
 
-        /* =====================================
-           SHOW TRIPS
-        ===================================== */
+        /* ==================================================
+           FIND SELECTED ROUTE
+        ================================================== */
 
-        function showTrips() {
+        function getSelectedRoute() {
 
-            const selectedRoute =
-                busData.find(
-                    route =>
-                        route.route_id ===
-                        routeSelect.value
-                );
+            return busData.find(
+                route =>
+                    route.route_id ===
+                    routeSelect.value
+            );
+
+        }
+
+
+
+        /* ==================================================
+           LOAD TRIPS
+        ================================================== */
+
+        function loadTrips() {
+
+            const route =
+                getSelectedRoute();
 
 
             tripSelect.innerHTML = "";
 
 
-            if (!selectedRoute) {
+            if (!route) {
 
                 return;
 
             }
 
 
-            selectedRoute.trips.forEach(
-                (trip, index) => {
+            /*
+               Closed route
+            */
 
-                    const option =
-                        document.createElement(
-                            "option"
-                        );
+            if (
+                route.status ===
+                "সম্পূর্ণ রুট বন্ধ"
+            ) {
 
-
-                    option.value = index;
-
-
-                    option.textContent =
-                        `${trip.trip} — ${trip.start_time} - ${trip.end_time}`;
-
-
-                    tripSelect.appendChild(
-                        option
+                const option =
+                    document.createElement(
+                        "option"
                     );
 
-                }
-            );
+
+                option.textContent =
+                    "No active trip";
+
+
+                option.value =
+                    "";
+
+
+                tripSelect.appendChild(
+                    option
+                );
+
+
+                showRoute();
+
+                return;
+
+            }
+
+
+            /*
+               Normal trips
+            */
+
+            if (
+                route.trips &&
+                route.trips.length > 0
+            ) {
+
+                route.trips.forEach(
+                    (trip, index) => {
+
+                        const option =
+                            document.createElement(
+                                "option"
+                            );
+
+
+                        option.value =
+                            index;
+
+
+                        option.textContent =
+                            `${trip.trip} — ${trip.start_time} - ${trip.end_time}`;
+
+
+                        tripSelect.appendChild(
+                            option
+                        );
+
+                    }
+                );
+
+            }
+
+
+            /*
+               Sub routes
+            */
+
+            else if (
+                route.sub_routes &&
+                route.sub_routes.length > 0
+            ) {
+
+                route.sub_routes.forEach(
+                    (subRoute, index) => {
+
+                        const option =
+                            document.createElement(
+                                "option"
+                            );
+
+
+                        option.value =
+                            index;
+
+
+                        option.textContent =
+                            `${subRoute.name} — ${subRoute.departure} - ${subRoute.arrival}`;
+
+
+                        tripSelect.appendChild(
+                            option
+                        );
+
+                    }
+                );
+
+            }
+
+
+            /*
+               No schedule
+            */
+
+            else {
+
+                const option =
+                    document.createElement(
+                        "option"
+                    );
+
+
+                option.textContent =
+                    "Schedule available soon";
+
+
+                option.value =
+                    "";
+
+
+                tripSelect.appendChild(
+                    option
+                );
+
+            }
 
 
             showRoute();
@@ -1097,147 +1874,301 @@
 
 
 
-        /* =====================================
+        /* ==================================================
            SHOW ROUTE
-        ===================================== */
+        ================================================== */
 
         function showRoute() {
 
-            const selectedRoute =
-                busData.find(
-                    route =>
-                        route.route_id ===
-                        routeSelect.value
-                );
+            const route =
+                getSelectedRoute();
 
 
-            if (!selectedRoute) {
+            if (!route) {
 
                 return;
 
             }
 
 
+            /* ROUTE NAME */
+
             routeName.textContent =
-                selectedRoute.route_name;
+                route.route_name;
 
 
-            const tripIndex =
-                parseInt(
-                    tripSelect.value || 0
-                );
-
-
-            const selectedTrip =
-                selectedRoute.trips[
-                    tripIndex
-                ];
-
-
-            stopsList.innerHTML = "";
-
-
-            /*
-             * Only Route 01 currently
-             * contains detailed stop data
-             */
+            /* ROUTE STATUS */
 
             if (
-                selectedTrip &&
-                selectedTrip.stops
+                route.status ===
+                "সম্পূর্ণ রুট বন্ধ"
             ) {
 
-                selectedTrip.stops.forEach(
-                    (stop, index) => {
-
-                        const stopDiv =
-                            document.createElement(
-                                "div"
-                            );
+                routeStatus.textContent =
+                    "● Route Closed";
 
 
-                        stopDiv.className =
-                            "stop";
-
-
-                        stopDiv.innerHTML = `
-
-                            <div class="stop-number">
-                                ${index + 1}
-                            </div>
-
-                            <div class="stop-info">
-
-                                <div class="stop-name">
-                                    📍 ${stop.stop_name}
-                                </div>
-
-                                <div class="stop-time">
-                                    Scheduled Time:
-                                    ${stop.time}
-                                </div>
-
-                            </div>
-
-                        `;
-
-
-                        stopsList.appendChild(
-                            stopDiv
-                        );
-
-                    }
-                );
+                routeStatus.className =
+                    "route-status closed";
 
             }
 
             else {
 
+                routeStatus.textContent =
+                    "● Active";
+
+
+                routeStatus.className =
+                    "route-status";
+
+            }
+
+
+            /* CLEAR STOPS */
+
+            stopsList.innerHTML = "";
+
+
+            /* =====================================
+               CLOSED ROUTE
+            ===================================== */
+
+            if (
+                route.status ===
+                "সম্পূর্ণ রুট বন্ধ"
+            ) {
+
                 stopsList.innerHTML = `
 
-                    <div class="stop">
+                    <div class="empty-message">
 
-                        <div class="stop-number">
-                            ℹ️
-                        </div>
-
-                        <div class="stop-info">
-
-                            <div class="stop-name">
-                                Stop information
-                                available soon
-                            </div>
-
-                            <div class="stop-time">
-                                This route currently
-                                has schedule data only.
-                            </div>
-
-                        </div>
+                        🚫 This route is currently
+                        closed according to the
+                        provided BRUR schedule.
 
                     </div>
 
                 `;
 
+                return;
+
             }
+
+
+
+            /* =====================================
+               NORMAL TRIP WITH STOPS
+            ===================================== */
+
+            if (
+                route.trips &&
+                route.trips.length > 0
+            ) {
+
+                const tripIndex =
+                    parseInt(
+                        tripSelect.value || 0
+                    );
+
+
+                const selectedTrip =
+                    route.trips[
+                        tripIndex
+                    ];
+
+
+                if (
+                    selectedTrip &&
+                    selectedTrip.stops &&
+                    selectedTrip.stops.length > 0
+                ) {
+
+                    selectedTrip.stops.forEach(
+                        (stop, index) => {
+
+                            const stopDiv =
+                                document.createElement(
+                                    "div"
+                                );
+
+
+                            stopDiv.className =
+                                "stop";
+
+
+                            stopDiv.innerHTML = `
+
+                                <div class="stop-number">
+                                    ${index + 1}
+                                </div>
+
+                                <div class="stop-info">
+
+                                    <div class="stop-name">
+                                        📍 ${stop.stop_name}
+                                    </div>
+
+                                    <div class="stop-time">
+                                        Scheduled Time:
+                                        ${stop.time}
+                                    </div>
+
+                                </div>
+
+                            `;
+
+
+                            stopsList.appendChild(
+                                stopDiv
+                            );
+
+                        }
+                    );
+
+
+                    return;
+
+                }
+
+            }
+
+
+
+            /* =====================================
+               SUB ROUTES
+            ===================================== */
+
+            if (
+                route.sub_routes &&
+                route.sub_routes.length > 0
+            ) {
+
+                const subIndex =
+                    parseInt(
+                        tripSelect.value || 0
+                    );
+
+
+                const selectedSubRoute =
+                    route.sub_routes[
+                        subIndex
+                    ];
+
+
+                if (selectedSubRoute) {
+
+                    stopsList.innerHTML = `
+
+                        <div class="stop">
+
+                            <div class="stop-number">
+                                🚌
+                            </div>
+
+                            <div class="stop-info">
+
+                                <div class="stop-name">
+                                    ${selectedSubRoute.name}
+                                </div>
+
+                                <div class="stop-time">
+
+                                    Departure:
+                                    ${selectedSubRoute.departure}
+
+                                    <br>
+
+                                    Arrival:
+                                    ${selectedSubRoute.arrival}
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    `;
+
+                    return;
+
+                }
+
+            }
+
+
+
+            /* =====================================
+               CLOSED TRIPS
+            ===================================== */
+
+            if (
+                route.closedTrips &&
+                route.closedTrips.length > 0
+            ) {
+
+                stopsList.innerHTML = `
+
+                    <div class="empty-message">
+
+                        ℹ️ Only the active trip is
+                        currently available in the
+                        provided schedule.
+
+                        <br><br>
+
+                        Closed trips:
+                        ${route.closedTrips.join(", ")}
+
+                    </div>
+
+                `;
+
+                return;
+
+            }
+
+
+
+            /* =====================================
+               NO DETAILED STOP DATA
+            ===================================== */
+
+            stopsList.innerHTML = `
+
+                <div class="empty-message">
+
+                    📍 Detailed stop information is
+                    not available in the provided
+                    schedule data for this route.
+
+                    <br><br>
+
+                    We will add the actual stop
+                    locations in a later step.
+
+                </div>
+
+            `;
 
         }
 
 
 
-        /* =====================================
+        /* ==================================================
            ROUTE CHANGE
-        ===================================== */
+        ================================================== */
 
         routeSelect.addEventListener(
             "change",
-            showTrips
+            loadTrips
         );
 
 
-        /* =====================================
+
+        /* ==================================================
            TRIP CHANGE
-        ===================================== */
+        ================================================== */
 
         tripSelect.addEventListener(
             "change",
@@ -1246,12 +2177,11 @@
 
 
 
-        /* =====================================
+        /* ==================================================
            INITIAL LOAD
-        ===================================== */
+        ================================================== */
 
-        showTrips();
-
+        loadTrips();
 
     </script>
 
