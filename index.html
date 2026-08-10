@@ -2,15 +2,14 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
-
-    <title>University Bus Tracker </title>
- <link
-    rel="stylesheet"
-    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>University Bus Tracker</title>
+    
+    <link
+        rel="stylesheet"
+        href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    />
+    
     <style>
         * {
             margin: 0;
@@ -71,30 +70,9 @@
             color: #6b7280;
         }
 
-        .map {
-            height: 400px;
-            background: #dbeafe;
-            border-radius: 18px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 25px;
-            border: 1px solid #bfdbfe;
-        }
-
-        .map-text {
-            text-align: center;
-        }
-
-        .map-icon {
-            font-size: 50px;
-            margin-bottom: 10px;
-        }
-
         .bus-list {
             display: grid;
-            grid-template-columns:
-                repeat(auto-fit, minmax(260px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
             gap: 15px;
         }
 
@@ -110,6 +88,154 @@
             justify-content: space-between;
             margin-bottom: 15px;
         }
+
+        .bus-name {
+            font-size: 19px;
+            font-weight: bold;
+        }
+
+        .running {
+            color: #16a34a;
+            font-size: 13px;
+            font-weight: bold;
+        }
+
+        .info {
+            margin-top: 8px;
+            color: #6b7280;
+            font-size: 14px;
+        }
+
+        .info strong {
+            color: #111827;
+        }
+
+        footer {
+            text-align: center;
+            padding: 30px;
+            color: #9ca3af;
+            font-size: 13px;
+        }
+
+        .map-container {
+            margin-bottom: 25px;
+            border-radius: 18px;
+            overflow: hidden;
+            border: 1px solid #dbeafe;
+        }
+
+        #map {
+            height: 400px;
+            width: 100%;
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <div class="header-content">
+        <div class="logo">
+            🚌 University Bus Tracker
+        </div>
+        <div class="status">
+            ● System Online
+        </div>
+    </div>
+</header>
+
+<main>
+    <section class="hero">
+        <h1>Live University Bus Tracking</h1>
+        <p>Find university buses, routes and estimated arrival times.</p>
+    </section>
+
+    <!-- MAP -->
+    <section class="map-container">
+        <div id="map"></div>
+    </section>
+
+    <!-- BUS LIST -->
+    <section class="bus-list">
+        <div class="bus-card">
+            <div class="bus-title">
+                <div class="bus-name">🚌 Bus 01</div>
+                <div class="running">● Running</div>
+            </div>
+            <div class="info">Route: <strong>Route A</strong></div>
+            <div class="info">Current: <strong>University Gate</strong></div>
+            <div class="info">Next Stop: <strong>Park Mor</strong></div>
+            <div class="info">ETA: <strong>7 minutes</strong></div>
+        </div>
+
+        <div class="bus-card">
+            <div class="bus-title">
+                <div class="bus-name">🚌 Bus 02</div>
+                <div class="running">● Running</div>
+            </div>
+            <div class="info">Route: <strong>Route B</strong></div>
+            <div class="info">Current: <strong>Lalbagh</strong></div>
+            <div class="info">Next Stop: <strong>Modern Mode</strong></div>
+            <div class="info">ETA: <strong>12 minutes</strong></div>
+        </div>
+    </section>
+</main>
+
+<footer>
+    University Bus Tracker © 2026
+</footer>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+<script>
+    // 1. Create map centered at BRUR, Rangpur
+    const map = L.map('map').setView([25.7198, 89.2588], 14);
+
+    // 2. OpenStreetMap Tile Layer
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 19,
+        attribution: '&copy; OpenStreetMap'
+    }).addTo(map);
+
+    // ==============================
+    // BRUR MAIN CAMPUS MARKER
+    // ==============================
+    const university = L.marker([25.7198, 89.2588]).addTo(map);
+    university.bindPopup('<b>🎓 Begum Rokeya University</b><br>BRUR Main Campus').openPopup();
+
+    // ==============================
+    // ROUTE A STOPS (Rangpur Local Area)
+    // ==============================
+    const routeA = [
+        { name: "BRUR Main Gate", lat: 25.7198, lng: 89.2588 },
+        { name: "Park Mor", lat: 25.7225, lng: 89.2615 },
+        { name: "Lalbagh Mor", lat: 25.7280, lng: 89.2550 },
+        { name: "Modern Mode", lat: 25.7110, lng: 89.2680 }
+    ];
+
+    // ==============================
+    // SHOW STOPS ON MAP
+    // ==============================
+    routeA.forEach((stop, index) => {
+        const marker = L.marker([stop.lat, stop.lng]).addTo(map);
+        marker.bindPopup(`<b>📍 ${stop.name}</b><br>Stop ${index + 1}`);
+    });
+
+    // ==============================
+    // DRAW ROUTE LINE
+    // ==============================
+    const routeCoordinates = routeA.map(stop => [stop.lat, stop.lng]);
+    const routeLine = L.polyline(routeCoordinates, { color: 'blue', weight: 4 }).addTo(map);
+
+    // ==============================
+    // DEMO BUS MARKER
+    // ==============================
+    const bus = L.marker([25.7225, 89.2615]).addTo(map);
+    bus.bindPopup(`<b>🚌 BRUR Bus 01</b><br>Route A<br>Status: Running`);
+</script>
+
+</body>
+</html>
 
         .bus-name {
             font-size: 19px;
