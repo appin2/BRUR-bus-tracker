@@ -8,9 +8,11 @@
     <meta name="viewport"
           content="width=device-width, initial-scale=1.0">
 
-    <title>BRUR University Bus Tracker</title>
+    <title>BRUR Bus Tracker</title>
+
 
     <!-- Leaflet CSS -->
+
     <link
         rel="stylesheet"
         href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
@@ -18,10 +20,6 @@
 
 
     <style>
-
-        /* =========================
-           GLOBAL
-        ========================= */
 
         * {
             margin: 0;
@@ -37,16 +35,14 @@
         }
 
 
-        /* =========================
-           HEADER
-        ========================= */
+        /* HEADER */
 
         header {
-            background: #ffffff;
+            background: white;
             padding: 18px 20px;
 
             box-shadow:
-                0 2px 10px rgba(0, 0, 0, 0.08);
+                0 2px 10px rgba(0,0,0,0.08);
 
             position: sticky;
             top: 0;
@@ -71,15 +67,13 @@
 
 
         .status {
-            font-size: 13px;
             color: #16a34a;
+            font-size: 13px;
             font-weight: bold;
         }
 
 
-        /* =========================
-           MAIN
-        ========================= */
+        /* MAIN */
 
         main {
             max-width: 1100px;
@@ -87,10 +81,6 @@
             padding: 25px 20px;
         }
 
-
-        /* =========================
-           HERO
-        ========================= */
 
         .hero {
             margin-bottom: 25px;
@@ -105,12 +95,1170 @@
 
         .hero p {
             color: #6b7280;
-            line-height: 1.5;
         }
 
 
-        /* =========================
+        /* SELECTOR */
+
+        .selector-card {
+
+            background: white;
+
+            padding: 20px;
+
+            border-radius: 16px;
+
+            margin-bottom: 20px;
+
+            box-shadow:
+                0 4px 15px rgba(0,0,0,0.06);
+        }
+
+
+        .selector-grid {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(auto-fit, minmax(250px, 1fr));
+
+            gap: 15px;
+        }
+
+
+        .form-group label {
+
+            display: block;
+
+            font-size: 14px;
+
+            font-weight: bold;
+
+            margin-bottom: 7px;
+        }
+
+
+        select {
+
+            width: 100%;
+
+            padding: 12px;
+
+            border: 1px solid #d1d5db;
+
+            border-radius: 10px;
+
+            background: white;
+
+            font-size: 14px;
+
+            cursor: pointer;
+        }
+
+
+        /* ROUTE INFO */
+
+        .route-info {
+
+            background: white;
+
+            padding: 20px;
+
+            border-radius: 16px;
+
+            margin-bottom: 20px;
+
+            box-shadow:
+                0 4px 15px rgba(0,0,0,0.06);
+        }
+
+
+        .route-title {
+
+            font-size: 18px;
+
+            font-weight: bold;
+
+            margin-bottom: 8px;
+        }
+
+
+        .route-name {
+
+            color: #2563eb;
+
+            line-height: 1.6;
+        }
+
+
+        /* MAP */
+
+        .map-container {
+
+            background: white;
+
+            border-radius: 18px;
+
+            overflow: hidden;
+
+            margin-bottom: 20px;
+
+            box-shadow:
+                0 4px 15px rgba(0,0,0,0.06);
+        }
+
+
+        #map {
+
+            height: 420px;
+
+            width: 100%;
+        }
+
+
+        /* STOPS */
+
+        .stops-card {
+
+            background: white;
+
+            padding: 20px;
+
+            border-radius: 16px;
+
+            box-shadow:
+                0 4px 15px rgba(0,0,0,0.06);
+        }
+
+
+        .stops-title {
+
+            font-size: 20px;
+
+            font-weight: bold;
+
+            margin-bottom: 18px;
+        }
+
+
+        .stop {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 12px;
+
+            padding: 13px 0;
+
+            border-bottom: 1px solid #eef0f3;
+        }
+
+
+        .stop:last-child {
+
+            border-bottom: none;
+        }
+
+
+        .stop-number {
+
+            width: 34px;
+
+            height: 34px;
+
+            border-radius: 50%;
+
+            background: #eff6ff;
+
+            color: #2563eb;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            font-weight: bold;
+
+            font-size: 13px;
+
+            flex-shrink: 0;
+        }
+
+
+        .stop-info {
+
+            flex: 1;
+        }
+
+
+        .stop-name {
+
+            font-weight: bold;
+
+            margin-bottom: 3px;
+        }
+
+
+        .stop-time {
+
+            font-size: 13px;
+
+            color: #6b7280;
+        }
+
+
+        footer {
+
+            text-align: center;
+
+            padding: 30px;
+
+            color: #9ca3af;
+
+            font-size: 13px;
+        }
+
+
+        /* MOBILE */
+
+        @media (max-width: 600px) {
+
+            .logo {
+                font-size: 18px;
+            }
+
+
+            .status {
+                font-size: 11px;
+            }
+
+
+            .hero h1 {
+                font-size: 24px;
+            }
+
+
+            #map {
+                height: 380px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- HEADER -->
+
+    <header>
+
+        <div class="header-content">
+
+            <div class="logo">
+                🚌 BRUR Bus Tracker
+            </div>
+
+            <div class="status">
+                ● System Online
+            </div>
+
+        </div>
+
+    </header>
+
+
+
+    <main>
+
+
+        <!-- HERO -->
+
+        <section class="hero">
+
+            <h1>
+                Begum Rokeya University Bus Tracker
+            </h1>
+
+            <p>
+                View university bus routes, trips and stops.
+            </p>
+
+        </section>
+
+
+
+        <!-- ROUTE / TRIP SELECTOR -->
+
+        <section class="selector-card">
+
+            <div class="selector-grid">
+
+
+                <div class="form-group">
+
+                    <label for="routeSelect">
+                        Select Route
+                    </label>
+
+                    <select id="routeSelect">
+                    </select>
+
+                </div>
+
+
+
+                <div class="form-group">
+
+                    <label for="tripSelect">
+                        Select Trip
+                    </label>
+
+                    <select id="tripSelect">
+                    </select>
+
+                </div>
+
+
+            </div>
+
+        </section>
+
+
+
+        <!-- ROUTE INFORMATION -->
+
+        <section class="route-info">
+
+            <div class="route-title">
+                Selected Route
+            </div>
+
+            <div
+                class="route-name"
+                id="routeName">
+            </div>
+
+        </section>
+
+
+
+        <!-- MAP -->
+
+        <section class="map-container">
+
+            <div id="map"></div>
+
+        </section>
+
+
+
+        <!-- STOPS -->
+
+        <section class="stops-card">
+
+            <div class="stops-title">
+                📍 Bus Stops & Schedule
+            </div>
+
+            <div id="stopsList">
+            </div>
+
+        </section>
+
+
+    </main>
+
+
+
+    <footer>
+
+        BRUR University Bus Tracker © 2026
+
+    </footer>
+
+
+
+    <!-- LEAFLET JS -->
+
+    <script
+        src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js">
+    </script>
+
+
+
+    <script>
+
+
+        /* =====================================
+           BRUR DATA
+        ===================================== */
+
+
+        const busData = [
+
+            {
+
+                route_id: "01",
+
+                route_name:
+                    "বিশ্ববিদ্যালয় - তাজহাট - শাপলাচত্বর - বিশ্ববিদ্যালয়",
+
+                trips: [
+
+                    {
+
+                        trip: "সকাল ১ম ট্রিপ",
+
+                        start_time: "08:00 AM",
+
+                        end_time: "09:00 AM",
+
+                        stops: [
+
+                            {
+                                stop_name: "বিশ্ববিদ্যালয়",
+                                time: "8:00"
+                            },
+
+                            {
+                                stop_name: "কামারের মোড়",
+                                time: "8:20"
+                            },
+
+                            {
+                                stop_name: "গলাকাটা মোড়",
+                                time: "8:23"
+                            },
+
+                            {
+                                stop_name: "তাজহাট",
+                                time: "8:26"
+                            },
+
+                            {
+                                stop_name: "আনছারি মোড়",
+                                time: "8:28"
+                            },
+
+                            {
+                                stop_name: "রেলগেট",
+                                time: "8:31"
+                            },
+
+                            {
+                                stop_name: "ঘোড়াপীর মাজার",
+                                time: "8:35"
+                            },
+
+                            {
+                                stop_name: "শাপলা চত্বর",
+                                time: "8:37"
+                            },
+
+                            {
+                                stop_name: "বীকন মোড়",
+                                time: "8:43"
+                            },
+
+                            {
+                                stop_name: "চারতলা মোড়",
+                                time: "8:45"
+                            },
+
+                            {
+                                stop_name: "খামার মোড়",
+                                time: "8:48"
+                            },
+
+                            {
+                                stop_name: "লালবাগ",
+                                time: "8:51"
+                            },
+
+                            {
+                                stop_name:
+                                    "বিশ্ববিদ্যালয় (পৌঁছে)",
+
+                                time: "9:00"
+                            }
+
+                        ]
+
+                    },
+
+
+                    {
+
+                        trip: "সকাল ২য় ট্রিপ",
+
+                        start_time: "09:00 AM",
+
+                        end_time: "10:00 AM",
+
+                        stops: [
+
+                            {
+                                stop_name: "বিশ্ববিদ্যালয়",
+                                time: "9:00"
+                            },
+
+                            {
+                                stop_name: "কামারের মোড়",
+                                time: "9:20"
+                            },
+
+                            {
+                                stop_name: "গলাকাটা মোড়",
+                                time: "9:23"
+                            },
+
+                            {
+                                stop_name: "তাজহাট",
+                                time: "9:26"
+                            },
+
+                            {
+                                stop_name: "আনছারি মোড়",
+                                time: "9:28"
+                            },
+
+                            {
+                                stop_name: "রেলগেট",
+                                time: "9:31"
+                            },
+
+                            {
+                                stop_name: "ঘোড়াপীর মাজার",
+                                time: "9:35"
+                            },
+
+                            {
+                                stop_name: "শাপলা চত্বর",
+                                time: "9:37"
+                            },
+
+                            {
+                                stop_name: "বীকন মোড়",
+                                time: "9:43"
+                            },
+
+                            {
+                                stop_name: "চারতলা মোড়",
+                                time: "9:45"
+                            },
+
+                            {
+                                stop_name: "খামার মোড়",
+                                time: "9:48"
+                            },
+
+                            {
+                                stop_name: "লালবাগ",
+                                time: "9:51"
+                            },
+
+                            {
+                                stop_name:
+                                    "বিশ্ববিদ্যালয় (পৌঁছে)",
+
+                                time: "10:00"
+                            }
+
+                        ]
+
+                    }
+
+                ]
+
+            },
+
+
+            {
+
+                route_id: "02",
+
+                bus_name: "কমলা সুন্দরী",
+
+                route_name:
+                    "বিশ্ববিদ্যালয় - সাতমাথা - প্রেস ক্লাব - বিশ্ববিদ্যালয়",
+
+                trips: [
+
+                    {
+                        trip: "১ম ট্রিপ (সকাল)",
+                        start_time: "08:00 AM",
+                        end_time: "09:00 AM"
+                    },
+
+                    {
+                        trip: "২য় ট্রিপ (সকাল)",
+                        start_time: "09:00 AM",
+                        end_time: "10:00 AM"
+                    },
+
+                    {
+                        trip: "৩য় ট্রিপ (সকাল)",
+                        start_time: "11:00 AM",
+                        end_time: "12:00 PM"
+                    },
+
+                    {
+                        trip: "৪র্থ ট্রিপ (বেলা)",
+                        start_time: "01:00 PM",
+                        end_time: "02:00 PM"
+                    },
+
+                    {
+                        trip: "৫ম ট্রিপ (বিকাল)",
+                        start_time: "03:00 PM",
+                        end_time: "04:00 PM"
+                    },
+
+                    {
+                        trip: "৬ষ্ঠ ট্রিপ (বিকাল)",
+                        start_time: "05:10 PM",
+                        end_time: "06:00 PM"
+                    }
+
+                ]
+
+            },
+
+
+            {
+
+                route_id: "04",
+
+                bus_name: "কমলা সুন্দরী",
+
+                route_name:
+                    "বিশ্ববিদ্যালয় - মেডিকেল মোড় - টি টি কলেজ - বিশ্ববিদ্যালয়",
+
+                trips: [
+
+                    {
+                        trip: "১ম ট্রিপ (সকাল)",
+                        start_time: "08:00 AM",
+                        end_time: "09:00 AM"
+                    },
+
+                    {
+                        trip: "২য় ট্রিপ (সকাল)",
+                        start_time: "09:00 AM",
+                        end_time: "10:00 AM"
+                    },
+
+                    {
+                        trip: "৩য় ট্রিপ (সকাল)",
+                        start_time: "11:00 AM",
+                        end_time: "12:00 PM"
+                    },
+
+                    {
+                        trip: "৪র্থ ট্রিপ (বেলা)",
+                        start_time: "01:00 PM",
+                        end_time: "02:00 PM"
+                    },
+
+                    {
+                        trip: "৫ম ট্রিপ (বিকাল)",
+                        start_time: "03:00 PM",
+                        end_time: "04:20 PM"
+                    },
+
+                    {
+                        trip: "৬ষ্ঠ ট্রিপ (বিকাল)",
+                        start_time: "05:10 PM",
+                        end_time: "06:00 PM"
+                    }
+
+                ]
+
+            },
+
+
+            {
+
+                route_id: "05",
+
+                bus_name: "কমলা সুন্দরী",
+
+                route_name:
+                    "বিশ্ববিদ্যালয় - মডার্ন - পাগলাপীর (হাজীরহাট) - বিশ্ববিদ্যালয়",
+
+                trips: [
+
+                    {
+                        trip: "৪র্থ ট্রিপ (বেলা)",
+                        start_time: "01:00 PM",
+                        end_time: "02:10 PM"
+                    }
+
+                ]
+
+            },
+
+
+            {
+
+                route_id: "06",
+
+                bus_name: "BRTC",
+
+                route_name:
+                    "পীরগঞ্জ / মিঠাপুকুর - বিশ্ববিদ্যালয়",
+
+                trips: [
+
+                    {
+                        trip: "সকাল ট্রিপ",
+                        start_time: "07:30 AM",
+                        end_time: "10:00 AM"
+                    },
+
+                    {
+                        trip: "দুপুর ট্রিপ",
+                        start_time: "01:50 PM",
+                        end_time: "02:37 PM"
+                    },
+
+                    {
+                        trip: "বিকাল ট্রিপ",
+                        start_time: "05:10 PM",
+                        end_time: "07:00 PM"
+                    }
+
+                ]
+
+            },
+
+
+            {
+
+                route_id: "07",
+
+                bus_name: "BRTC",
+
+                route_name:
+                    "পীরগাছা / কদমতলা - বিশ্ববিদ্যালয়",
+
+                trips: [
+
+                    {
+                        trip: "১ম ট্রিপ (সকাল)",
+                        start_time: "08:00 AM",
+                        end_time: "09:40 AM"
+                    },
+
+                    {
+                        trip: "২য় ট্রিপ (দুপুর)",
+                        start_time: "01:30 PM",
+                        end_time: "02:30 PM"
+                    },
+
+                    {
+                        trip: "৩য় ট্রিপ (বিকাল)",
+                        start_time: "05:10 PM",
+                        end_time: "06:30 PM"
+                    }
+
+                ]
+
+            },
+
+
+            {
+
+                route_id: "08",
+
+                bus_name: "BRTC",
+
+                route_name:
+                    "কাউনিয়া - ভার্সিটি - কাউনিয়া",
+
+                trips: [
+
+                    {
+                        trip: "১ম ট্রিপ (সকাল)",
+                        start_time: "08:00 AM",
+                        end_time: "09:50 AM"
+                    },
+
+                    {
+                        trip: "২য় ট্রিপ (দুপুর)",
+                        start_time: "01:30 PM",
+                        end_time: "02:40 PM"
+                    },
+
+                    {
+                        trip: "৩য় ট্রিপ (বিকাল)",
+                        start_time: "05:10 PM",
+                        end_time: "06:20 PM"
+                    }
+
+                ]
+
+            },
+
+
+            {
+
+                route_id: "09",
+
+                bus_name: "BRTC",
+
+                route_name:
+                    "গঙ্গাচড়া / বুড়ির হাট - বিশ্ববিদ্যালয়",
+
+                trips: [
+
+                    {
+                        trip: "১ম ট্রিপ (সকাল)",
+                        start_time: "08:10 AM",
+                        end_time: "10:00 AM"
+                    },
+
+                    {
+                        trip: "২য় ট্রিপ (বিকাল)",
+                        start_time: "03:30 PM",
+                        end_time: "04:40 PM"
+                    },
+
+                    {
+                        trip: "৩য় ট্রিপ (বিকাল)",
+                        start_time: "05:10 PM",
+                        end_time: "06:50 PM"
+                    }
+
+                ]
+
+            }
+
+        ];
+
+
+
+        /* =====================================
            MAP
+        ===================================== */
+
+        const map = L.map("map").setView(
+            [25.7439, 89.2752],
+            13
+        );
+
+
+        L.tileLayer(
+            "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+            {
+
+                maxZoom: 19,
+
+                attribution:
+                    "&copy; OpenStreetMap contributors"
+
+            }
+        ).addTo(map);
+
+
+
+        /* =====================================
+           UNIVERSITY MARKER
+        ===================================== */
+
+        const university = L.marker(
+            [25.7439, 89.2752]
+        ).addTo(map);
+
+
+        university.bindPopup(
+            `
+            <b>🎓 Begum Rokeya University</b>
+            <br>
+            BRUR Campus
+            `
+        );
+
+
+
+        /* =====================================
+           HTML ELEMENTS
+        ===================================== */
+
+        const routeSelect =
+            document.getElementById(
+                "routeSelect"
+            );
+
+
+        const tripSelect =
+            document.getElementById(
+                "tripSelect"
+            );
+
+
+        const routeName =
+            document.getElementById(
+                "routeName"
+            );
+
+
+        const stopsList =
+            document.getElementById(
+                "stopsList"
+            );
+
+
+
+        /* =====================================
+           LOAD ROUTES
+        ===================================== */
+
+        busData.forEach(
+            route => {
+
+                const option =
+                    document.createElement(
+                        "option"
+                    );
+
+                option.value =
+                    route.route_id;
+
+                option.textContent =
+                    `Route ${route.route_id} — ${route.route_name}`;
+
+                routeSelect.appendChild(
+                    option
+                );
+
+            }
+        );
+
+
+
+        /* =====================================
+           SHOW TRIPS
+        ===================================== */
+
+        function showTrips() {
+
+            const selectedRoute =
+                busData.find(
+                    route =>
+                        route.route_id ===
+                        routeSelect.value
+                );
+
+
+            tripSelect.innerHTML = "";
+
+
+            if (!selectedRoute) {
+
+                return;
+
+            }
+
+
+            selectedRoute.trips.forEach(
+                (trip, index) => {
+
+                    const option =
+                        document.createElement(
+                            "option"
+                        );
+
+
+                    option.value = index;
+
+
+                    option.textContent =
+                        `${trip.trip} — ${trip.start_time} - ${trip.end_time}`;
+
+
+                    tripSelect.appendChild(
+                        option
+                    );
+
+                }
+            );
+
+
+            showRoute();
+
+        }
+
+
+
+        /* =====================================
+           SHOW ROUTE
+        ===================================== */
+
+        function showRoute() {
+
+            const selectedRoute =
+                busData.find(
+                    route =>
+                        route.route_id ===
+                        routeSelect.value
+                );
+
+
+            if (!selectedRoute) {
+
+                return;
+
+            }
+
+
+            routeName.textContent =
+                selectedRoute.route_name;
+
+
+            const tripIndex =
+                parseInt(
+                    tripSelect.value || 0
+                );
+
+
+            const selectedTrip =
+                selectedRoute.trips[
+                    tripIndex
+                ];
+
+
+            stopsList.innerHTML = "";
+
+
+            /*
+             * Only Route 01 currently
+             * contains detailed stop data
+             */
+
+            if (
+                selectedTrip &&
+                selectedTrip.stops
+            ) {
+
+                selectedTrip.stops.forEach(
+                    (stop, index) => {
+
+                        const stopDiv =
+                            document.createElement(
+                                "div"
+                            );
+
+
+                        stopDiv.className =
+                            "stop";
+
+
+                        stopDiv.innerHTML = `
+
+                            <div class="stop-number">
+                                ${index + 1}
+                            </div>
+
+                            <div class="stop-info">
+
+                                <div class="stop-name">
+                                    📍 ${stop.stop_name}
+                                </div>
+
+                                <div class="stop-time">
+                                    Scheduled Time:
+                                    ${stop.time}
+                                </div>
+
+                            </div>
+
+                        `;
+
+
+                        stopsList.appendChild(
+                            stopDiv
+                        );
+
+                    }
+                );
+
+            }
+
+            else {
+
+                stopsList.innerHTML = `
+
+                    <div class="stop">
+
+                        <div class="stop-number">
+                            ℹ️
+                        </div>
+
+                        <div class="stop-info">
+
+                            <div class="stop-name">
+                                Stop information
+                                available soon
+                            </div>
+
+                            <div class="stop-time">
+                                This route currently
+                                has schedule data only.
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                `;
+
+            }
+
+        }
+
+
+
+        /* =====================================
+           ROUTE CHANGE
+        ===================================== */
+
+        routeSelect.addEventListener(
+            "change",
+            showTrips
+        );
+
+
+        /* =====================================
+           TRIP CHANGE
+        ===================================== */
+
+        tripSelect.addEventListener(
+            "change",
+            showRoute
+        );
+
+
+
+        /* =====================================
+           INITIAL LOAD
+        ===================================== */
+
+        showTrips();
+
+
+    </script>
+
+
+</body>
+
+</html>           MAP
         ========================= */
 
         .map-container {
