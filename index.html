@@ -301,25 +301,98 @@
         }
     ).addTo(map);
 
+    // ==============================
+// BRUR BUS ROUTE SYSTEM
+// ==============================
 
-    // Demo University Location
-    const university = L.marker(
-        [25.7198, 89.2588]
-    ).addTo(map);
+// BRUR University
+const university = L.marker(
+    [23.6850, 90.3563]
+).addTo(map);
 
-    university.bindPopup(
-        '<b>University</b><br>University Campus'
-    );
+university.bindPopup(
+    '<b>🎓 Begum Rokeya University</b><br>BRUR Campus'
+);
 
 
-    // Demo Bus Location
-    const bus = L.marker(
-        [23.6900, 90.3600]
-    ).addTo(map);
+// ==============================
+// ROUTE A STOPS
+// ==============================
 
-    bus.bindPopup(
-        '<b>🚌 Bus 01</b><br>Route A'
-    );
+const routeA = [
+    {
+        name: "University Gate",
+        lat: 23.6850,
+        lng: 90.3563
+    },
+
+    {
+        name: "Stop 2",
+        lat: 23.6880,
+        lng: 90.3590
+    },
+
+    {
+        name: "Stop 3",
+        lat: 23.6910,
+        lng: 90.3620
+    },
+
+    {
+        name: "Stop 4",
+        lat: 23.6940,
+        lng: 90.3650
+    }
+];
+
+
+// ==============================
+// SHOW STOPS
+// ==============================
+
+routeA.forEach((stop, index) => {
+
+    const marker = L.marker([
+        stop.lat,
+        stop.lng
+    ]).addTo(map);
+
+    marker.bindPopup(`
+        <b>📍 ${stop.name}</b><br>
+        Stop ${index + 1}
+    `);
+
+});
+
+
+// ==============================
+// DRAW ROUTE LINE
+// ==============================
+
+const routeCoordinates = routeA.map(
+    stop => [stop.lat, stop.lng]
+);
+
+const routeLine = L.polyline(
+    routeCoordinates
+).addTo(map);
+
+
+// ==============================
+// DEMO BUS
+// ==============================
+
+const bus = L.marker([
+    23.6895,
+    90.3600
+]).addTo(map);
+
+    
+bus.bindPopup(`
+    <b>🚌 BRUR Bus 01</b><br>
+    Route A<br>
+    Status: Running
+`);
 
 </script>
 
