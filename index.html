@@ -413,7 +413,30 @@
 
         }
 
-    </style>
+    
+
+    /* =========================
+       LIVE BUS MARKER
+    ========================= */
+
+    .live-bus-marker {
+        background: transparent;
+        border: none;
+    }
+
+    .live-bus-icon {
+        width: 42px;
+        height: 42px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #ffffff;
+        border: 3px solid #16a34a;
+        border-radius: 50%;
+        box-shadow: 0 3px 12px rgba(0,0,0,.22);
+        font-size: 22px;
+    }
+</style>
     <style>
     /* =========================
        APP LOADING SCREEN
@@ -1693,6 +1716,9 @@
             13
         );
 
+        // Make the Leaflet map available to the Firebase module.
+        window.brurMap = map;
+
 
         L.tileLayer(
             "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
@@ -2303,51 +2329,106 @@
         appId: "1:336935983900:web:a9da6fa90555af3c8678d9"
     };
 
+    const loading = document.getElementById("app-loading");
+    const statusBox = document.getElementById("firebaseStatus");
+
+    function hideLoading() {
+        if (!loading) return;
+        loading.classList.add("hidden");
+        setTimeout(() => loading.remove(), 350);
+    }
+
+    function showFirebaseError(message) {
+        if (statusBox) {
+            statusBox.innerHTML = "❌ " + message;
+        }
+    }
+
     try {
         const app = initializeApp(firebaseConfig);
         const db = getDatabase(app);
-        const statusBox = document.getElementById("firebaseStatus");
         const bus01Ref = ref(db, "locations/bus_01");
 
- onValue(
-    bus01LocationRef,
-    (snapshot) => {
+        let bus01Marker = null;
 
-        const data =
-            snapshot.val();
+        const bus01Icon = L.divIcon({
+            className: "live-bus-marker",
+            html: '<div class="live-bus-icon">🚌</div>',
+            iconSize: [42, 42],
+            iconAnchor: [21, 21],
+            popupAnchor: [0, -21]
+        });
 
-        console.log(
-            "Bus 01 Location:",
-            data
-        );
+        onValue(bus01Ref, (snapshot) => {
+            const data = snapshot.val();
+            console.log("Bus 01 Location:", data);
 
+            if (!data) {
+                if (statusBox) statusBox.innerHTML = "⚠️ Bus 01 location data not found.";
+                hideLoading();
+                return;
+            }
 
-        /* =========================
-           HIDE LOADING SCREEN
-        ========================= */
+            const latitude = Number(data.latitude);
+            const longitude = Number(data.longitude);
 
-        const loading =
-            document.getElementById(
-                "app-loading"
-            );
+            if (!Number.isFinite(latitude) || !Number.isFinite(longitude)) {
+                showFirebaseError("Invalid Bus 01 latitude/longitude.");
+                hideLoading();
+                return;
+            }
 
-        if (loading) {
+            const map = window.brurMap;
 
-            loading.classList.add(
-                "hidden"
-            );
+            if (!map) {
+                showFirebaseError("Map is not ready yet. Please refresh the page.");
+                hideLoading();
+                return;
+            }
 
-            setTimeout(() => {
+            const popupHtml = `
+                <div style="min-width:170px;line-height:1.6">
+                    <strong>🚌 BRUR Bus 01</strong><br>
+                    Route: ${data.route || "01"}<br>
+                    Speed: ${Number(data.speed) || 0} km/h<br>
+                    <small>Live location from Firebase</small>
+                </div>
+            `;
 
-                loading.remove();
+            if (!bus01Marker) {
+                bus01Marker = L.marker([latitude, longitude], {
+                    icon: bus01Icon,
+                    title: "BRUR Bus 01"
+                }).addTo(map);
+                bus01Marker.bindPopup(popupHtml);
+            } else {
+                bus01Marker.setLatLng([latitude, longitude]);
+                bus01Marker.setPopupContent(popupHtml);
+            }
 
-            }, 350);
+            if (statusBox) {
+                statusBox.innerHTML = `🟢 Firebase connected — Bus 01 location is live.`;
+            }
 
-        }
+            hideLoading();
+        }, (error) => {
+            console.error("Firebase location error:", error);
+            showFirebaseError("Firebase connection failed: " + error.message);
+            hideLoading();
+        });
 
-    }
-);
-        }
+        // Prevent the loading screen from getting stuck forever.
+        setTimeout(() => {
+            if (document.getElementById("app-loading")) {
+                showFirebaseError("Firebase is taking too long to respond. Please refresh.");
+                hideLoading();
+            }
+        }, 10000);
+
+    } catch (error) {
+        console.error("Firebase initialization error:", error);
+        showFirebaseError("Firebase could not be initialized. Check the Firebase configuration.");
+        hideLoading();
     }
 </script>
 
