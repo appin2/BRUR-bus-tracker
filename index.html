@@ -414,6 +414,82 @@
         }
 
     </style>
+    <style>
+    /* =========================
+       APP LOADING SCREEN
+    ========================= */
+
+    #app-loading {
+        position: fixed;
+        inset: 0;
+        z-index: 99999;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        background: #f8fafc;
+    }
+
+    .loading-box {
+        width: min(90%, 360px);
+        padding: 30px 25px;
+
+        text-align: center;
+
+        background: #ffffff;
+        border-radius: 18px;
+
+        box-shadow: 0 10px 35px rgba(0,0,0,0.08);
+    }
+
+    .loading-bus {
+        font-size: 42px;
+        margin-bottom: 12px;
+    }
+
+    .loading-title {
+        font-size: 20px;
+        font-weight: 700;
+        color: #1e293b;
+    }
+
+    .loading-text {
+        margin-top: 8px;
+        font-size: 14px;
+        color: #64748b;
+    }
+
+    .loading-spinner {
+        width: 32px;
+        height: 32px;
+
+        margin: 18px auto 0;
+
+        border: 3px solid #e2e8f0;
+        border-top-color: #16a34a;
+
+        border-radius: 50%;
+
+        animation: busLoadingSpin 0.8s linear infinite;
+    }
+
+    @keyframes busLoadingSpin {
+        to {
+            transform: rotate(360deg);
+        }
+    }
+
+    #app-loading.hidden {
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+
+        transition:
+            opacity 0.3s ease,
+            visibility 0.3s ease;
+    }
+</style>
 
 </head>
 
@@ -421,6 +497,32 @@
 <body>
 
 
+<!-- =========================
+     APP LOADING SCREEN
+========================= -->
+
+<div id="app-loading">
+
+    <div class="loading-box">
+
+        <div class="loading-bus">
+            🚌
+        </div>
+
+        <div class="loading-title">
+            BRUR Bus Tracker
+        </div>
+
+        <div class="loading-text">
+            Loading routes and live bus data...
+        </div>
+
+        <div class="loading-spinner"></div>
+
+    </div>
+
+</div>
+    
     <!-- =========================
          HEADER
     ========================= -->
@@ -2207,24 +2309,44 @@
         const statusBox = document.getElementById("firebaseStatus");
         const bus01Ref = ref(db, "locations/bus_01");
 
-        onValue(bus01Ref, (snapshot) => {
-            const data = snapshot.val();
-            console.log("Bus 01 Location:", data);
+ onValue(
+    bus01LocationRef,
+    (snapshot) => {
 
-            if (data) {
-                statusBox.innerHTML = `🟢 <strong>Firebase Connected</strong><br>Bus 01: ${data.latitude}, ${data.longitude}`;
-            } else {
-                statusBox.innerHTML = "🟡 Firebase connected, but Bus 01 location data is empty.";
-            }
-        }, (error) => {
-            console.error("Firebase read error:", error);
-            statusBox.innerHTML = `🔴 <strong>Firebase read failed</strong><br>${error.message}`;
-        });
-    } catch (error) {
-        console.error("Firebase initialization error:", error);
-        const statusBox = document.getElementById("firebaseStatus");
-        if (statusBox) {
-            statusBox.innerHTML = `🔴 <strong>Firebase initialization failed</strong><br>${error.message}`;
+        const data =
+            snapshot.val();
+
+        console.log(
+            "Bus 01 Location:",
+            data
+        );
+
+
+        /* =========================
+           HIDE LOADING SCREEN
+        ========================= */
+
+        const loading =
+            document.getElementById(
+                "app-loading"
+            );
+
+        if (loading) {
+
+            loading.classList.add(
+                "hidden"
+            );
+
+            setTimeout(() => {
+
+                loading.remove();
+
+            }, 350);
+
+        }
+
+    }
+);
         }
     }
 </script>
