@@ -2184,7 +2184,87 @@
         loadTrips();
 
     </script>
+<!-- Firebase -->
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
 
+    import {
+        getDatabase,
+        ref,
+        onValue
+    } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-database.js";
+
+
+    /* =========================
+       FIREBASE CONFIG
+    ========================= */
+
+    const firebaseConfig = {
+
+        apiKey: "AIzaSyDKdR0qbWssCBNWvEJSeTitv6EoPum76k",
+
+        authDomain:
+            "brur-bus-tracker-ea811.firebaseapp.com",
+
+        projectId:
+            "brur-bus-tracker-ea811",
+
+        storageBucket:
+            "brur-bus-tracker-ea811.firebasestorage.app",
+
+        messagingSenderId:
+            "336935983900",
+
+        appId:
+            "1:336935983900:web:a9da6fa90555af3c8678d9"
+
+    };
+
+
+    /* =========================
+       INITIALIZE FIREBASE
+    ========================= */
+
+    const firebaseApp =
+        initializeApp(firebaseConfig);
+
+
+    /* =========================
+       INITIALIZE DATABASE
+    ========================= */
+
+    const database =
+        getDatabase(firebaseApp);
+
+
+    /* =========================
+       READ BUS 01 LOCATION
+    ========================= */
+
+    const bus01LocationRef =
+        ref(
+            database,
+            "locations/bus_01"
+        );
+
+
+    onValue(
+        bus01LocationRef,
+        (snapshot) => {
+
+            const data =
+                snapshot.val();
+
+
+            console.log(
+                "Bus 01 Location:",
+                data
+            );
+
+        }
+    );
+
+</script>
 
 </body>
 
