@@ -6,8 +6,11 @@
     <meta name="viewport"
           content="width=device-width, initial-scale=1.0">
 
-    <title>University Bus Tracker</title>
-
+    <title>University Bus Tracker </title>
+ <link
+    rel="stylesheet"
+    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+/>
     <style>
         * {
             margin: 0;
@@ -135,6 +138,18 @@
             color: #9ca3af;
             font-size: 13px;
         }
+
+        .map-container {
+    margin-bottom: 25px;
+    border-radius: 18px;
+    overflow: hidden;
+    border: 1px solid #dbeafe;
+}
+
+#map {
+    height: 400px;
+    width: 100%;
+}
     </style>
 </head>
 
@@ -170,23 +185,11 @@
 
     <!-- MAP -->
 
-    <section class="map">
+   <section class="map-container">
 
-        <div class="map-text">
+    <div id="map"></div>
 
-            <div class="map-icon">
-                🗺️
-            </div>
-
-            <h2>Live Map</h2>
-
-            <p>
-                Live bus location will appear here.
-            </p>
-
-        </div>
-
-    </section>
+</section>
 
 
     <!-- BUS LIST -->
@@ -277,5 +280,49 @@
 
 </footer>
 
+<script
+    src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js">
+</script>
+
+<script>
+
+    // Create map
+    const map = L.map('map').setView(
+        [25.7198, 89.2588],
+        13
+    );
+
+    // OpenStreetMap
+    L.tileLayer(
+        'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+        {
+            maxZoom: 19,
+            attribution: '&copy; OpenStreetMap'
+        }
+    ).addTo(map);
+
+
+    // Demo University Location
+    const university = L.marker(
+        [25.7198, 89.2588]
+    ).addTo(map);
+
+    university.bindPopup(
+        '<b>University</b><br>University Campus'
+    );
+
+
+    // Demo Bus Location
+    const bus = L.marker(
+        [23.6900, 90.3600]
+    ).addTo(map);
+
+    bus.bindPopup(
+        '<b>🚌 Bus 01</b><br>Route A'
+    );
+
+</script>
+
 </body>
+
 </html>
